@@ -24,7 +24,8 @@ WebMidi.enable(function (err) {
     });
 
     if (WebMidi.inputs.length > 0) {
-      WebMidi.inputs[0].addListener("noteon", "all", function (e) {
+      var input = WebMidi.getInputByName("LPK25");
+      input.addListener("noteon", "all", function (e) {
         console.log("noteon " + JSON.stringify(e));
       });
     }

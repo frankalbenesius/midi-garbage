@@ -23,6 +23,12 @@ WebMidi.enable(function (err) {
       console.log(e);
     });
 
+    if (WebMidi.inputs.length > 0) {
+      WebMidi.inputs[0].addListener("noteon", "all", function (e) {
+        console.log("noteon " + JSON.stringify(e));
+      });
+    }
+
     // Display the current time
     console.log(WebMidi.time);
   }

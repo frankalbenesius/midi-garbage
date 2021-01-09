@@ -23,6 +23,13 @@ WebMidi.enable(function (err) {
       console.log(e);
     });
 
+    if (WebMidi.inputs.length > 0) {
+      var input = WebMidi.getInputByName("LPK25");
+      input.addListener("noteon", "all", function (e) {
+        console.log("noteon " + JSON.stringify(e));
+      });
+    }
+
     // Display the current time
     console.log(WebMidi.time);
   }

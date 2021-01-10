@@ -45,9 +45,14 @@ const ControlsPanel: FunctionComponent<Props> = (props) => {
         </select>
       </div>
       <div className="dropdown">
-        <label htmlFor="inputSelect">Input</label>
-        <select id="inputSelect">
+        <label htmlFor="outputSelect">Output</label>
+        <select id="outputSelect">
           <option value="">None Selected</option>
+          {devices.outputs.map((output) => (
+            <option value={output.id} key={output.id}>
+              {output.name}
+            </option>
+          ))}
         </select>
       </div>
     </div>

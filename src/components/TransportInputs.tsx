@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Rewind, Square, Play, Pause } from "react-feather";
+import { Rewind, Play, Pause } from "react-feather";
 
 interface TransportInputsProps {
   isPlaying: boolean;
@@ -11,15 +11,9 @@ interface TransportInputsProps {
 const TransportInputs = (props: TransportInputsProps) => {
   return (
     <Wrapper>
-      {props.isPlaying ? (
-        <StopButton onClick={props.onPlayToggle}>
-          <Square />
-        </StopButton>
-      ) : (
-        <StopButton disabled={props.tick < 1} onClick={props.onTickReset}>
-          <Rewind />
-        </StopButton>
-      )}
+      <StopButton disabled={props.tick < 1} onClick={props.onTickReset}>
+        <Rewind />
+      </StopButton>
       <PlayButton isPlaying={props.isPlaying} onClick={props.onPlayToggle}>
         {props.isPlaying ? <Pause /> : <Play />}
       </PlayButton>
@@ -40,7 +34,6 @@ const Button = styled.button`
   background: #11698e;
   color: white;
   border-radius: 3px;
-  outline: none;
   display: flex;
   align-items: center;
   justify-content: center;

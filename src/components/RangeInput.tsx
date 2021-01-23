@@ -11,10 +11,10 @@ interface RangeInputProps {
 const RangeInput = (props: RangeInputProps) => {
   return (
     <Wrapper>
-      <label htmlFor={props.label}>
-        {props.label} ({props.value})
-      </label>
-      <br />
+      <SplitLabel htmlFor={props.label}>
+        <div>{props.label}</div>
+        <div>{props.value}</div>
+      </SplitLabel>
       <Input
         id={props.label}
         onChange={(e) => props.onChange(e.target.value)}
@@ -37,4 +37,9 @@ const Input = styled.input`
   padding: 7px 0;
   margin: 0;
   width: 100%;
+`;
+
+const SplitLabel = styled.label`
+  display: flex;
+  justify-content: space-between;
 `;

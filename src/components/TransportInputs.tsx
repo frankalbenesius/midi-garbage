@@ -5,13 +5,13 @@ import { Rewind, Play, Pause } from "react-feather";
 interface TransportInputsProps {
   isPlaying: boolean;
   onPlayToggle: () => void;
-  tick: number;
-  onTickReset: () => void;
+  pulse: number;
+  onPulseReset: () => void;
 }
 const TransportInputs = (props: TransportInputsProps) => {
   return (
     <Wrapper>
-      <StopButton disabled={props.tick < 1} onClick={props.onTickReset}>
+      <StopButton disabled={props.pulse < 1} onClick={props.onPulseReset}>
         <Rewind />
       </StopButton>
       <PlayButton isPlaying={props.isPlaying} onClick={props.onPlayToggle}>

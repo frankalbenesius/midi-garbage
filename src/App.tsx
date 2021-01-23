@@ -2,26 +2,33 @@ import React, { useState } from "react";
 import ControlsPanel from "./components/ControlsPanel";
 import WebMIDICheck from "./components/WebMidiCheck";
 import Layout from "./components/Layout";
+import usePulseClock from "./hooks/usePulseClock";
+import { PPQN } from "./constants";
 
 interface MidiGarbageState {
   inputId: string;
   outputId: string;
   isPlaying: boolean;
-  tick: number;
+  pulse: number;
   bpm: number;
 }
 
-function App() {
+const App = () => {
   const [state, setState] = useState<MidiGarbageState>({
     inputId: "",
     outputId: "",
-    isPlaying: false,
-    tick: 0,
+    isPlaying: true,
+    pulse: -1,
     bpm: 120,
   });
 
-  // TODO, make a ticking clock that sequencers can listen to
-  // in order to derive their current step n stuff
+  usePulseClock({
+    bpm: state.bpm,
+    isPlaying: state.isPlaying,
+    onPulse: () => setState((s) => ({ ...s, pulse: s.pulse + 1 })),
+  });
+
+  const showBeat = state.pulse % PPQN < PPQN / 2;
 
   return (
     <WebMIDICheck>
@@ -32,8 +39,8 @@ function App() {
             onPlayToggle={() =>
               setState((s) => ({ ...s, isPlaying: !s.isPlaying }))
             }
-            tick={state.tick}
-            onTickReset={() => setState((s) => ({ ...s, tick: 0 }))}
+            pulse={state.pulse}
+            onPulseReset={() => setState((s) => ({ ...s, pulse: -1 }))}
             bpm={state.bpm}
             onBpmChange={(bpm) => setState((s) => ({ ...s, bpm }))}
             inputId={state.inputId}
@@ -42,10 +49,16 @@ function App() {
             onOutputChange={(outputId) => setState((s) => ({ ...s, outputId }))}
           />
         }
-        main={<div>sequencer content!</div>}
+        main={
+          <div>
+            sequencer content!
+            <div>pulse: {Math.floor(state.pulse / PPQN)}</div>
+            {showBeat && <div>beat</div>}
+          </div>
+        }
       />
     </WebMIDICheck>
   );
-}
+};
 
 export default App;

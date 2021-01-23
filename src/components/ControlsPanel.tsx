@@ -13,8 +13,8 @@ interface Props {
   onBpmChange: (bpm: number) => void;
   isPlaying: boolean;
   onPlayToggle: () => void;
-  tick: number;
-  onTickReset: () => void;
+  pulse: number;
+  onPulseReset: () => void;
 }
 
 interface Devices {
@@ -46,8 +46,8 @@ const ControlsPanel: FunctionComponent<Props> = (props) => {
       <TransportInputs
         isPlaying={props.isPlaying}
         onPlayToggle={props.onPlayToggle}
-        tick={props.tick}
-        onTickReset={props.onTickReset}
+        pulse={props.pulse}
+        onPulseReset={props.onPulseReset}
       />
       <RangeInput
         label="BPM"

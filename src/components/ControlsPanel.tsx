@@ -1,11 +1,20 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
 import webmidi, { Input, Output } from "webmidi";
+import Dropdown from "./Dropdown";
+import RangeInput from "./RangeInput";
+import TransportInputs from "./TransportInputs";
 
 interface Props {
   inputId: string;
-  outputId: string;
   onInputChange: (id: string) => void;
+  outputId: string;
   onOutputChange: (id: string) => void;
+  bpm: number;
+  onBpmChange: (bpm: number) => void;
+  isPlaying: boolean;
+  onPlayToggle: () => void;
+  tick: number;
+  onTickReset: () => void;
 }
 
 interface Devices {
@@ -33,28 +42,38 @@ const ControlsPanel: FunctionComponent<Props> = (props) => {
 
   return (
     <div className="controls">
-      <div className="dropdown">
-        <label htmlFor="inputSelect">Input</label>
-        <select id="inputSelect">
-          <option value="">None Selected</option>
-          {devices.inputs.map((input) => (
-            <option value={input.id} key={input.id}>
-              {input.name}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div className="dropdown">
-        <label htmlFor="outputSelect">Output</label>
-        <select id="outputSelect">
-          <option value="">None Selected</option>
-          {devices.outputs.map((output) => (
-            <option value={output.id} key={output.id}>
-              {output.name}
-            </option>
-          ))}
-        </select>
-      </div>
+      <h1>MIDI Garbage 🚮</h1>
+      <TransportInputs
+        isPlaying={props.isPlaying}
+        onPlayToggle={props.onPlayToggle}
+        tick={props.tick}
+        onTickReset={props.onTickReset}
+      />
+      <RangeInput
+        label="BPM"
+        value={props.bpm}
+        min={1}
+        max={240}
+        onChange={props.onBpmChange}
+      />
+      <Dropdown
+        label="Sequencer"
+        value={"default"}
+        options={[]}
+        onChange={console.log}
+      />
+      <Dropdown
+        label="MIDI Input Device"
+        value={props.inputId}
+        options={devices.inputs.map((d) => ({ value: d.id, label: d.name }))}
+        onChange={props.onInputChange}
+      />
+      <Dropdown
+        label="MIDI Output Device"
+        value={props.outputId}
+        options={devices.outputs.map((d) => ({ value: d.id, label: d.name }))}
+        onChange={props.onOutputChange}
+      />
     </div>
   );
 };

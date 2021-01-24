@@ -12,7 +12,7 @@ import Layout from "./components/Layout";
 import usePulseClock from "./hooks/usePulseClock";
 import sequencers from "./sequencers";
 
-interface MidiGarbageState {
+export interface MidiGarbageState {
   inputId: string;
   outputId: string;
   isPlaying: boolean;
@@ -64,7 +64,7 @@ const App = () => {
             <Switch>
               {sequencers.map(({ route, component: Sequencer }) => (
                 <Route key={route} path={route}>
-                  <Sequencer pulse={state.pulse} />
+                  <Sequencer {...state} />
                 </Route>
               ))}
               <Redirect from="/" to="/franks-first-one" />

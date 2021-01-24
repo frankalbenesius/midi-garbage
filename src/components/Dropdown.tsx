@@ -13,7 +13,6 @@ interface DropdownProps {
 const Dropdown = (props: DropdownProps) => {
   useEffect(() => {
     if (!props.value && props.options.length > 0) {
-      console.log(props.label, props.options);
       props.onChange(props.options[0].value);
     }
   }, [props.options, props.value]);

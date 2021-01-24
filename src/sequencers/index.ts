@@ -1,14 +1,11 @@
+import { MidiGarbageState } from "../App";
 import { default as FranksFirstOne } from "./FranksFirstOne";
 import SomeOtherOne from "./SomeOtherOne";
-
-export interface SequencerProps {
-  pulse: number;
-}
 
 interface SequencerOption {
   route: string;
   name: string;
-  component: (props: SequencerProps) => JSX.Element;
+  component: (props: MidiGarbageState) => JSX.Element;
 }
 
 const sequencers: SequencerOption[] = [

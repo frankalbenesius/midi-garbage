@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
-import webmidi, { Input, Output } from "webmidi";
+import webmidi, { IMidiChannel, Input, Output } from "webmidi";
 
 import Dropdown from "./Dropdown";
 import RangeInput from "./RangeInput";
@@ -12,6 +12,8 @@ interface Props {
   onInputChange: (id: string) => void;
   outputId: string;
   onOutputChange: (id: string) => void;
+  outputChannel: "all" | number;
+  onOutputChannelChange: (channel: "all" | number) => void;
   bpm: number;
   onBpmChange: (bpm: number) => void;
   isPlaying: boolean;
@@ -77,13 +79,29 @@ const ControlsPanel: FunctionComponent<Props> = (props) => {
         label="MIDI Input Device"
         value={props.inputId}
         options={devices.inputs.map((d) => ({ value: d.id, label: d.name }))}
-        onChange={props.onInputChange}
+        onChange={(value) => props.onInputChange(value.toString())}
       />
       <Dropdown
         label="MIDI Output Device"
         value={props.outputId}
         options={devices.outputs.map((d) => ({ value: d.id, label: d.name }))}
-        onChange={props.onOutputChange}
+        onChange={(value) => props.onOutputChange(value.toString())}
+      />
+      <Dropdown
+        label="MIDI Output Channel"
+        value={props.outputChannel}
+        options={Array(17)
+          .fill(null)
+          .map((_, idx) =>
+            idx === 0
+              ? { value: idx, label: "All" }
+              : { value: idx, label: idx.toString() }
+          )}
+        onChange={(value) => {
+          props.onOutputChannelChange(
+            value === 0 ? "all" : parseInt(value.toString())
+          );
+        }}
       />
     </div>
   );

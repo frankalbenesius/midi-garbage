@@ -34,7 +34,7 @@ const FranksFirstOne = (props: MidiGarbageState) => {
       // Play a note on all channels of the selected output
       const note: number = MIDDLE_C + MAJOR_SCALE_INTERVALS[degree];
       const duration = MINUTE_MS / props.bpm / STEPS_PER_QUARTER_NOTE;
-      output.playNote(note, MIDI_CHANNEL, { duration });
+      output.playNote(note, props.outputChannel, { duration });
     }
   }, [currentStep]); // TODO: this is definitely not exhaustive dependencies... not sure if that's bad
 

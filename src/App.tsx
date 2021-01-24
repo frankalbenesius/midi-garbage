@@ -11,6 +11,7 @@ import WebMIDICheck from "./components/WebMidiCheck";
 import Layout from "./components/Layout";
 import usePulseClock from "./hooks/usePulseClock";
 import sequencers from "./sequencers";
+import WebMidi from "webmidi";
 
 export interface MidiGarbageState {
   inputId: string;
@@ -33,7 +34,13 @@ const App = () => {
   usePulseClock({
     bpm: state.bpm,
     isPlaying: state.isPlaying,
-    onPulse: () => setState((s) => ({ ...s, pulse: s.pulse + 1 })),
+    onPulse: () => {
+      const output = WebMidi.getOutputById(state.outputId);
+      if (output) {
+        output.sendClock();
+      }
+      setState((s) => ({ ...s, pulse: s.pulse + 1 }));
+    },
   });
 
   return (

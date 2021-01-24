@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 interface DropdownProps {
   label: string;
-  value: string | number;
+  value?: string | number;
   options: {
     value: string | number;
     label: string;
@@ -13,9 +13,11 @@ interface DropdownProps {
 const Dropdown = (props: DropdownProps) => {
   useEffect(() => {
     if (!props.value && props.options.length > 0) {
+      console.log(props.label, props.options);
       props.onChange(props.options[0].value);
     }
   }, [props.options, props.value]);
+
   return (
     <DropdownWrapper>
       <label htmlFor={props.label}>{props.label}</label>
@@ -25,7 +27,11 @@ const Dropdown = (props: DropdownProps) => {
         onChange={(e) => props.onChange(e.target.value)}
         value={props.value}
       >
-        <option value="">None</option>
+        {props.options.length < 1 && (
+          <option disabled value="">
+            None
+          </option>
+        )}
         {props.options.map((option) => (
           <option value={option.value} key={option.value}>
             {option.label}

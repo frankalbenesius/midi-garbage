@@ -1,8 +1,11 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
 import webmidi, { Input, Output } from "webmidi";
+
 import Dropdown from "./Dropdown";
 import RangeInput from "./RangeInput";
 import TransportInputs from "./TransportInputs";
+import sequencers from "../sequencers";
+import { useHistory, useLocation } from "react-router-dom";
 
 interface Props {
   inputId: string;
@@ -23,6 +26,9 @@ interface Devices {
 }
 
 const ControlsPanel: FunctionComponent<Props> = (props) => {
+  const history = useHistory();
+  const location = useLocation();
+
   const [devices, setDevices] = useState<Devices>({
     inputs: [],
     outputs: [],
@@ -42,7 +48,7 @@ const ControlsPanel: FunctionComponent<Props> = (props) => {
 
   return (
     <div className="controls">
-      <h1>MIDI Garbage 🚮</h1>
+      <h1>🚮 MIDI Garbage</h1>
       <TransportInputs
         isPlaying={props.isPlaying}
         onPlayToggle={props.onPlayToggle}
@@ -58,9 +64,14 @@ const ControlsPanel: FunctionComponent<Props> = (props) => {
       />
       <Dropdown
         label="Sequencer"
-        value={"default"}
-        options={[]}
-        onChange={console.log}
+        value={location.pathname}
+        options={sequencers.map((seq) => ({
+          value: seq.route,
+          label: seq.name,
+        }))}
+        onChange={(value) => {
+          history.push(value.toString());
+        }}
       />
       <Dropdown
         label="MIDI Input Device"

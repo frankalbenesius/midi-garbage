@@ -3,12 +3,15 @@
   "version": "1.0.0",
   "description": "",
   "dependencies": {
+    "@types/react-router-dom": "^5.1.7",
+    "@types/styled-components": "^5.1.7",
     "autoprefixer": "^10.2.1",
     "parcel-bundler": "^1.12.4",
     "postcss-modules": "^4.0.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-feather": "^2.0.9",
+    "react-router-dom": "^5.2.0",
     "styled-components": "^5.2.1",
     "webmidi": "^2.5.1"
   },

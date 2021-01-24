@@ -25,7 +25,7 @@ const App = () => {
     inputId: "",
     outputId: "",
     isPlaying: false,
-    pulse: -1,
+    pulse: 0,
     bpm: 120,
   });
 
@@ -46,7 +46,7 @@ const App = () => {
                 setState((s) => ({ ...s, isPlaying: !s.isPlaying }))
               }
               pulse={state.pulse}
-              onPulseReset={() => setState((s) => ({ ...s, pulse: -1 }))}
+              onPulseReset={() => setState((s) => ({ ...s, pulse: 0 }))}
               bpm={state.bpm}
               onBpmChange={(bpm) => setState((s) => ({ ...s, bpm }))}
               inputId={state.inputId}

@@ -30,5 +30,4 @@ const Aside = styled.aside`
 
 const Main = styled.main`
   flex: 1;
-  padding: 1rem;
 `;

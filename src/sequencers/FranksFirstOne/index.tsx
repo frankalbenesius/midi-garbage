@@ -84,12 +84,11 @@ const Step = (props: StepProps) => {
   );
 };
 
-//colorhunt.co/palette/252885
+// https://colorhunt.co/palette/2763
 const colors = {
-  a: "#f7f7e8",
-  b: "#c7cfb7",
-  c: "#9dad7f",
-  d: "#557174",
+  white: "#eeeeee",
+  blue: "#00adb5",
+  black: "#222831",
 };
 
 const FlexWrapper = styled.div`
@@ -98,7 +97,7 @@ const FlexWrapper = styled.div`
   align-items: center;
   width: 100%;
   height: 100%;
-  background: ${colors.a};
+  background: ${colors.white};
 `;
 
 const StepsWrapper = styled.div`
@@ -115,7 +114,7 @@ const DegreeSquare = styled.div<{ isActive: boolean; isSelected: boolean }>`
   height: 2rem;
   margin: 0.25rem;
   border-radius: 0.25em;
-  background-color: ${(p) => (p.isSelected ? colors.d : colors.c)};
+  background-color: ${(p) => (p.isSelected ? colors.black : colors.blue)};
   opacity: ${(p) => (p.isActive ? 1 : 0.5)};
   &:hover {
     opacity: 1;

@@ -11,12 +11,12 @@ import WebMIDICheck from "./components/WebMidiCheck";
 import Layout from "./components/Layout";
 import usePulseClock from "./hooks/usePulseClock";
 import sequencers from "./sequencers";
-import WebMidi, { IMidiChannel } from "webmidi";
+import WebMidi from "webmidi";
 
 export interface MidiGarbageState {
   inputId: string;
   outputId: string;
-  outputChannel: IMidiChannel;
+  outputChannel: number | "all";
   isPlaying: boolean;
   pulse: number;
   bpm: number;

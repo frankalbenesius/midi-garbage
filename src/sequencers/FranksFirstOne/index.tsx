@@ -29,7 +29,7 @@ const FranksFirstOne = (props: MidiGarbageState) => {
   useEffect(() => {
     var output = WebMidi.getOutputById(props.outputId);
     const degree = steps[currentStep];
-    if (props.isPlaying && output && degree !== null) {
+    if (props.isPlaying && output && degree !== null && degree !== undefined) {
       // Play a note on all channels of the selected output
       const note: number = MIDDLE_C + MAJOR_SCALE_INTERVALS[degree];
       const duration = MINUTE_MS / props.bpm / STEPS_PER_QUARTER_NOTE;

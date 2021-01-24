@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { SequencerProps } from "..";
 import { PPQN } from "../../constants";
+import { SequencerProps } from "../index";
 
 interface StepState {
   [index: number]: number | null;
@@ -11,25 +11,20 @@ const PPS = PPQN / 4;
 const NUM_STEPS = 16;
 const NUM_DEGREES = 8;
 
+const getEmptyStepState = (): StepState => Array(NUM_STEPS).fill(null);
+const getRandomStepState = (): StepState =>
+  Array(NUM_STEPS)
+    .fill(null)
+    .map(() => {
+      if (Math.random() < 0.2) {
+        return null;
+      } else {
+        return Math.floor(Math.random() * 1000) % NUM_DEGREES;
+      }
+    });
+
 const FranksFirstOne = (props: SequencerProps) => {
-  const [steps, setSteps] = useState<StepState>({
-    0: 1,
-    1: 0,
-    2: null,
-    3: null,
-    4: 5,
-    5: null,
-    6: 3,
-    7: null,
-    8: null,
-    9: 7,
-    10: null,
-    11: null,
-    12: 5,
-    13: 4,
-    14: 6,
-    15: 7,
-  });
+  const [steps, setSteps] = useState<StepState>(getRandomStepState());
 
   const currentStep = Math.floor(props.pulse / PPS) % NUM_STEPS;
 

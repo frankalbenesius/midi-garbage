@@ -20,14 +20,15 @@ interface MidiGarbageState {
   bpm: number;
 }
 
+const initialState: MidiGarbageState = {
+  inputId: "",
+  outputId: "",
+  isPlaying: false,
+  pulse: -1,
+  bpm: 120,
+};
 const App = () => {
-  const [state, setState] = useState<MidiGarbageState>({
-    inputId: "",
-    outputId: "",
-    isPlaying: false,
-    pulse: 0,
-    bpm: 120,
-  });
+  const [state, setState] = useState<MidiGarbageState>(initialState);
 
   usePulseClock({
     bpm: state.bpm,
@@ -46,7 +47,9 @@ const App = () => {
                 setState((s) => ({ ...s, isPlaying: !s.isPlaying }))
               }
               pulse={state.pulse}
-              onPulseReset={() => setState((s) => ({ ...s, pulse: 0 }))}
+              onPulseReset={() =>
+                setState((s) => ({ ...s, pulse: initialState.pulse }))
+              }
               bpm={state.bpm}
               onBpmChange={(bpm) => setState((s) => ({ ...s, bpm }))}
               inputId={state.inputId}

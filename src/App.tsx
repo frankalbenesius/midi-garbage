@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
   Switch,
@@ -12,6 +12,8 @@ import Layout from "./components/Layout";
 import usePulseClock from "./hooks/usePulseClock";
 import sequencers from "./sequencers";
 import WebMidi from "webmidi";
+
+import clock from "./lib/clock";
 
 export interface MidiGarbageState {
   inputId: string;
@@ -30,6 +32,7 @@ const initialState: MidiGarbageState = {
   pulse: -1,
   bpm: 120,
 };
+
 const App = () => {
   const [state, setState] = useState<MidiGarbageState>(initialState);
 
@@ -44,6 +47,10 @@ const App = () => {
       setState((s) => ({ ...s, pulse: s.pulse + 1 }));
     },
   });
+
+  useEffect(() => {
+    clock.setOutputId(state.outputId);
+  }, [state.outputId]);
 
   return (
     <WebMIDICheck>

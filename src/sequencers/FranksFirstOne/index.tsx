@@ -4,6 +4,7 @@ import WebMidi from "webmidi";
 
 import { MidiGarbageState } from "../../App";
 import { PPQN } from "../../constants";
+import clock from "../../lib/clock";
 
 // CONSTANTS:
 
@@ -24,7 +25,13 @@ interface StepState {
 const FranksFirstOne = (props: MidiGarbageState) => {
   const [steps, setSteps] = useState<StepState>(getRandomStepState());
 
-  const currentStep = Math.floor(props.pulse / PPS) % NUM_STEPS;
+  const [currentStep, setCurrentStep] = useState(0);
+  useEffect(() => {
+    clock.start();
+    clock.registerPulseHandler(6, (pulse) => {
+      setCurrentStep((pulse / 6) % NUM_STEPS);
+    });
+  }, []);
 
   useEffect(() => {
     var output = WebMidi.getOutputById(props.outputId);
